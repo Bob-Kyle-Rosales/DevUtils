@@ -1,8 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f7f7f8;
+  --color-background-tertiary: #efefef;
+  --color-text-primary: #111111;
+  --color-text-secondary: #555555;
+  --color-text-tertiary: #999999;
+  --color-border-secondary: #e0e0e0;
+  --color-border-tertiary: #ebebeb;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --background: var(--color-background-primary);
+  --foreground: var(--color-text-primary);
 }
 
 @theme inline {
@@ -10,17 +20,33 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-surface: var(--color-background-primary);
+  --color-surface-2: var(--color-background-secondary);
+  --color-surface-3: var(--color-background-tertiary);
+  --color-muted: var(--color-text-secondary);
+  --color-subtle: var(--color-text-tertiary);
+  --color-edge: var(--color-border-secondary);
+  --color-edge-subtle: var(--color-border-tertiary);
+  --color-brand: #534ab7;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --color-background-primary: #111111;
+    --color-background-secondary: #1a1a1a;
+    --color-background-tertiary: #222222;
+    --color-text-primary: #f0f0f0;
+    --color-text-secondary: #a0a0a0;
+    --color-text-tertiary: #666666;
+    --color-border-secondary: #2e2e2e;
+    --color-border-tertiary: #282828;
+    --background: var(--color-background-primary);
+    --foreground: var(--color-text-primary);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
 }
