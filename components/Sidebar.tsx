@@ -16,6 +16,7 @@ import {
   IconFileDiff,
   IconClock,
   IconTools,
+  IconSearch,
 } from "@tabler/icons-react";
 
 const nav = [
@@ -67,6 +68,25 @@ export default function Sidebar() {
         </span>
         DevUtils
       </Link>
+
+      <button
+        onClick={() =>
+          window.dispatchEvent(
+            new KeyboardEvent("keydown", {
+              key: "k",
+              ctrlKey: true,
+              bubbles: true,
+            }),
+          )
+        }
+        className="flex items-center gap-2 px-[14px] py-2 border-b border-b-edge-subtle text-xs text-muted hover:text-foreground hover:bg-surface transition-colors cursor-pointer w-full"
+      >
+        <IconSearch size={13} className="shrink-0" />
+        <span className="flex-1 text-left">Search tools</span>
+        <kbd className="text-[10px] border border-edge rounded px-1 py-px">
+          ⌘ K
+        </kbd>
+      </button>
 
       <div className="flex-1 overflow-y-auto">
         {nav.map(({ section, items }) => (
