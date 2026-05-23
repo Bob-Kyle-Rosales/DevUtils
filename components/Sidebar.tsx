@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
 import {
   IconBraces,
   IconTransform,
@@ -123,6 +124,9 @@ export default function Sidebar() {
             })}
           </div>
         ))}
+      </div>
+      <div className="border-t border-t-edge-subtle">
+        <ThemeToggle />
       </div>
     </aside>
   );
