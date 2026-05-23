@@ -16,14 +16,14 @@ import {
   IconRobot,
 } from "@tabler/icons-react";
 
-export type categoryegory = "formatter" | "encoder" | "generator" | "ai";
+export type category = "formatter" | "encoder" | "generator" | "ai";
 
 export type Tool = {
   id: string;
   name: string;
   desc: string;
   icon: FC<{ size?: number; style?: CSSProperties; className?: string }>;
-  category: categoryegory;
+  category: category;
   pro?: boolean;
 };
 
@@ -107,7 +107,7 @@ export const tools: Tool[] = [
     category: "formatter",
   },
   {
-    id: "ts",
+    id: "timestamp",
     name: "Timestamp",
     desc: "Unix ↔ human date",
     icon: IconClock,
