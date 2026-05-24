@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { IconLayoutGrid } from "@tabler/icons-react";
-import { tools } from "./lib/tools";
-import type { Tool } from "./lib/tools";
+import { tools } from "../lib/tools";
+import type { Tool } from "../lib/tools";
 
 const categories = [
   { id: "all", label: "All" },

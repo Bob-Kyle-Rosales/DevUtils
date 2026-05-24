@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { IconSearch } from "@tabler/icons-react";
-import { tools } from "@/app/lib/tools";
+import { tools } from "@/lib/tools";
 
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
@@ -51,7 +51,7 @@ export default function CommandPalette() {
     (t) =>
       !t.pro &&
       (t.name.toLowerCase().includes(query.toLowerCase()) ||
-        t.desc.toLowerCase().includes(query.toLowerCase()))
+        t.desc.toLowerCase().includes(query.toLowerCase())),
   );
 
   if (!open) return null;
@@ -83,7 +83,9 @@ export default function CommandPalette() {
         {/* Results */}
         <div className="max-h-72 overflow-y-auto py-1">
           {filtered.length === 0 ? (
-            <p className="text-sm text-muted text-center py-8">No tools found</p>
+            <p className="text-sm text-muted text-center py-8">
+              No tools found
+            </p>
           ) : (
             filtered.map((t) => {
               const Icon = t.icon;
