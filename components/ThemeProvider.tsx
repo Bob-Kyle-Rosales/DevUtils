@@ -13,15 +13,20 @@ export function useTheme() {
   return useContext(ThemeContext);
 }
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+function getInitialTheme(): Theme {
+  if (typeof window === "undefined") return "light";
+  const saved = localStorage.getItem("theme") as Theme | null;
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  return saved ?? (systemDark ? "dark" : "light");
+}
 
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
+
+  // Sync DOM class with the initial theme after mount
   useEffect(() => {
-    const saved = localStorage.getItem("theme") as Theme | null;
-    const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initial = saved ?? (systemDark ? "dark" : "light");
-    applyTheme(initial);
-    setThemeState(initial);
+    applyTheme(theme);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function setTheme(t: Theme) {
