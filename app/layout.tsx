@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import CommandPalette from "@/components/CommandPalette";
+import SessionWrapper from "@/components/SessionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,29 +33,31 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body>
-        <ThemeProvider>
-          <div
-            style={{
-              display: "flex",
-              height: "100vh",
-              overflow: "hidden",
-              background: "var(--color-background-primary)",
-            }}
-          >
-            <Sidebar />
-            <CommandPalette />
-            <main
+        <SessionWrapper>
+          <ThemeProvider>
+            <div
               style={{
-                flex: 1,
                 display: "flex",
-                flexDirection: "column",
+                height: "100vh",
                 overflow: "hidden",
+                background: "var(--color-background-primary)",
               }}
             >
-              {children}
-            </main>
-          </div>
-        </ThemeProvider>
+              <Sidebar />
+              <CommandPalette />
+              <main
+                style={{
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  overflow: "hidden",
+                }}
+              >
+                {children}
+              </main>
+            </div>
+          </ThemeProvider>
+        </SessionWrapper>
       </body>
     </html>
   );
