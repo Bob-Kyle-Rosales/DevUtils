@@ -1,5 +1,8 @@
 "use client";
 
+import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
+import { IconLogin, IconLogout } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
@@ -54,6 +57,52 @@ const nav = [
     ],
   },
 ];
+
+function SidebarUser() {
+  const { data: session, status } = useSession();
+
+  if (status === "loading") return null;
+
+  if (!session) {
+    return (
+      <Link
+        href="/login"
+        className="flex items-center gap-2 px-[14px] py-2 text-[13px] text-muted hover:text-foreground transition-colors no-underline"
+      >
+        <IconLogin size={15} className="shrink-0" />
+        Sign in
+      </Link>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-2 px-[14px] py-2">
+      {session.user?.image ? (
+        <Image
+          src={session.user.image}
+          alt=""
+          width={22}
+          height={22}
+          className="rounded-full shrink-0"
+        />
+      ) : (
+        <span className="size-[22px] rounded-full bg-brand flex items-center justify-center text-white text-[10px] font-medium shrink-0">
+          {session.user?.name?.[0]?.toUpperCase() ?? "?"}
+        </span>
+      )}
+      <span className="flex-1 truncate text-[12px] text-foreground">
+        {session.user?.name ?? session.user?.email}
+      </span>
+      <button
+        onClick={() => signOut({ callbackUrl: "/" })}
+        className="text-muted hover:text-foreground transition-colors"
+        title="Sign out"
+      >
+        <IconLogout size={14} />
+      </button>
+    </div>
+  );
+}
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -126,6 +175,7 @@ export default function Sidebar() {
         ))}
       </div>
       <div className="border-t border-t-edge-subtle">
+        <SidebarUser />
         <ThemeToggle />
       </div>
     </aside>
