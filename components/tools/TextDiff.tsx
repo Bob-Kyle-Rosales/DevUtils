@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { IconFileDiff } from "@tabler/icons-react";
 import ToolShell from "./ui/ToolShell";
+import CopyButton from "./ui/CopyButton";
 
 const SAMPLE = {
   a: 'function greet(name) {\n  console.log("Hello " + name);\n  return true;\n}',
@@ -34,21 +35,32 @@ export default function TextDiff() {
   const [b, setB] = useState("");
 
   const diff = a || b ? diffLines(a, b) : null;
+  const diffText = diff
+    ? diff
+        .map(
+          (l) =>
+            `${l.type === "added" ? "+" : l.type === "removed" ? "-" : " "} ${l.text}`,
+        )
+        .join("\n")
+    : null;
 
   return (
     <ToolShell
       icon={IconFileDiff}
       title="Text diff viewer"
       actions={
-        <button
-          onClick={() => {
-            setA(SAMPLE.a);
-            setB(SAMPLE.b);
-          }}
-          className="text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
-        >
-          Sample
-        </button>
+        <>
+          <button
+            onClick={() => {
+              setA(SAMPLE.a);
+              setB(SAMPLE.b);
+            }}
+            className="text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
+          >
+            Sample
+          </button>
+          <CopyButton value={diffText} />
+        </>
       }
     >
       <div className="flex flex-col flex-1 overflow-hidden">

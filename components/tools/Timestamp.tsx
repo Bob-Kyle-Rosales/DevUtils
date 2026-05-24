@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { IconClock } from "@tabler/icons-react";
 import ToolShell from "./ui/ToolShell";
+import CopyButton from "./ui/CopyButton";
 
 function formatTs(ms: number) {
   const d = new Date(ms);
@@ -47,12 +48,15 @@ export default function Timestamp() {
       icon={IconClock}
       title="Unix timestamp converter"
       actions={
-        <button
-          onClick={() => setInput(String(Math.floor(Date.now() / 1000)))}
-          className="text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
-        >
-          Use now
-        </button>
+        <>
+          <button
+            onClick={() => setInput(String(Math.floor(Date.now() / 1000)))}
+            className="text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
+          >
+            Use now
+          </button>
+          <CopyButton value={input.trim() || String(Math.floor(now / 1000))} />
+        </>
       }
     >
       <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4">

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { IconRegex } from "@tabler/icons-react";
 import ToolShell from "./ui/ToolShell";
+import CopyButton from "./ui/CopyButton";
 
 const SAMPLE = {
   pattern: "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b",
@@ -28,6 +29,12 @@ export default function RegexTester() {
   const [input, setInput] = useState("");
 
   const result = runRegex(pattern, flags, input);
+  const matchesText =
+    result && !result.error && result.matches.length
+      ? result.matches
+          .map((m, i) => `Match ${i + 1}: "${m[0]}" at index ${m.index}`)
+          .join("\n")
+      : null;
 
   function loadSample() {
     setPattern(SAMPLE.pattern);
@@ -40,12 +47,15 @@ export default function RegexTester() {
       icon={IconRegex}
       title="Regex tester"
       actions={
-        <button
-          onClick={loadSample}
-          className="text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
-        >
-          Sample
-        </button>
+        <>
+          <button
+            onClick={loadSample}
+            className="text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
+          >
+            Sample
+          </button>
+          <CopyButton value={matchesText} />
+        </>
       }
     >
       {/* Pattern bar */}

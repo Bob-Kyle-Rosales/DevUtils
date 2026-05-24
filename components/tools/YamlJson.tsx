@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { IconTransform } from "@tabler/icons-react";
 import ToolShell from "./ui/ToolShell";
+import CopyButton from "./ui/CopyButton";
+
+const SAMPLE = "name: DevUtils\nversion: 1.0\npublished: true\nauthor: You";
 
 function parseYaml(text: string) {
   if (!text.trim()) return null;
@@ -34,7 +37,21 @@ export default function YamlJson() {
   const result = parseYaml(input);
 
   return (
-    <ToolShell icon={IconTransform} title="YAML → JSON">
+    <ToolShell
+      icon={IconTransform}
+      title="YAML → JSON"
+      actions={
+        <>
+          <button
+            onClick={() => setInput(SAMPLE)}
+            className="text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
+          >
+            Sample
+          </button>
+          <CopyButton value={result?.out ?? null} />
+        </>
+      }
+    >
       <div className="flex flex-1 overflow-hidden">
         <div className="flex flex-col flex-1 border-r border-r-edge-subtle overflow-hidden">
           <div className="h-9 shrink-0 bg-surface-2 border-b border-b-edge-subtle px-3 flex items-center text-xs text-muted font-medium">

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { IconCode, IconCopy, IconCheck } from "@tabler/icons-react";
 import ToolShell from "./ui/ToolShell";
 
+const SAMPLE = '<h1 class="title">Hello & "World"!</h1>';
+
 const escapeMap: Record<string, string> = {
   "&": "&amp;",
   "<": "&lt;",
@@ -30,20 +32,28 @@ export default function HtmlEncoder() {
       icon={IconCode}
       title="HTML encoder"
       actions={
-        <button
-          onClick={copy}
-          className="flex items-center gap-1 text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
-        >
-          {copied ? (
-            <>
-              <IconCheck size={13} className="text-emerald-500" /> Copied
-            </>
-          ) : (
-            <>
-              <IconCopy size={13} /> Copy
-            </>
-          )}
-        </button>
+        <>
+          <button
+            onClick={() => setInput(SAMPLE)}
+            className="text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
+          >
+            Sample
+          </button>
+          <button
+            onClick={copy}
+            className="flex items-center gap-1 text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
+          >
+            {copied ? (
+              <>
+                <IconCheck size={13} className="text-emerald-500" /> Copied
+              </>
+            ) : (
+              <>
+                <IconCopy size={13} /> Copy
+              </>
+            )}
+          </button>
+        </>
       }
     >
       <div className="flex flex-1 overflow-hidden">

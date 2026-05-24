@@ -6,6 +6,8 @@ import ToolShell from "./ui/ToolShell";
 
 type Mode = "encode" | "decode";
 
+const SAMPLE = "Hello, DevUtils!";
+
 function process(v: string, mode: Mode) {
   if (!v) return null;
   try {
@@ -51,10 +53,17 @@ export default function Base64() {
       icon={IconFileCode}
       title="Base64 encoder / decoder"
       actions={
-        <button
-          onClick={copy}
-          className="flex items-center gap-1 text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
-        >
+        <>
+          <button
+            onClick={() => setInput(SAMPLE)}
+            className="text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
+          >
+            Sample
+          </button>
+          <button
+            onClick={copy}
+            className="flex items-center gap-1 text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
+          >
           {copied ? (
             <>
               <IconCheck size={13} className="text-emerald-500" /> Copied
@@ -64,7 +73,8 @@ export default function Base64() {
               <IconCopy size={13} /> Copy
             </>
           )}
-        </button>
+          </button>
+        </>
       }
       tabs={[
         { id: "encode", label: "Encode" },

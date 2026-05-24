@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { IconLock } from "@tabler/icons-react";
 import ToolShell from "./ui/ToolShell";
+import CopyButton from "./ui/CopyButton";
 
 const SAMPLE =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyXzEyMyIsIm5hbWUiOiJKYW5lIERldiIsInJvbGUiOiJwcm8iLCJpYXQiOjE3MTY0NjA4MDAsImV4cCI6OTk5OTk5OTk5OX0.signature";
@@ -49,12 +50,15 @@ export default function JwtDecoder() {
       icon={IconLock}
       title="JWT decoder"
       actions={
-        <button
-          onClick={() => setInput(SAMPLE)}
-          className="text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
-        >
-          Sample JWT
-        </button>
+        <>
+          <button
+            onClick={() => setInput(SAMPLE)}
+            className="text-xs px-2.5 py-1 rounded-md border border-edge text-muted hover:bg-surface-2 transition-colors cursor-pointer"
+          >
+            Sample JWT
+          </button>
+          <CopyButton value={result?.out ?? null} />
+        </>
       }
     >
       <div className="flex flex-1 overflow-hidden">
