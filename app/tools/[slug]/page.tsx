@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { ComponentType } from "react";
+import { auth } from "@/auth";
 import JsonFormatter from "@/components/tools/JsonFormatter";
 import Base64 from "@/components/tools/Base64";
 import UrlEncoder from "@/components/tools/UrlEncoder";
@@ -11,6 +12,8 @@ import HashGenerator from "@/components/tools/HashGenerator";
 import RegexTester from "@/components/tools/RegexTester";
 import TextDiff from "@/components/tools/TextDiff";
 import Timestamp from "@/components/tools/Timestamp";
+import SqlFormatter from "@/components/tools/SqlFormatter";
+import UpgradeGate from "@/components/UpgradeGate";
 
 const toolMap: Record<string, ComponentType> = {
   json: JsonFormatter,
@@ -24,7 +27,10 @@ const toolMap: Record<string, ComponentType> = {
   regex: RegexTester,
   diff: TextDiff,
   timestamp: Timestamp,
+  sql: SqlFormatter,
 };
+
+const proTools = new Set(["sql"]);
 
 export default async function ToolPage({
   params,
@@ -34,5 +40,13 @@ export default async function ToolPage({
   const { slug } = await params;
   const Tool = toolMap[slug];
   if (!Tool) notFound();
+
+  if (proTools.has(slug)) {
+    const session = await auth();
+    if (session?.user?.plan !== "pro") {
+      return <UpgradeGate />;
+    }
+  }
+
   return <Tool />;
 }

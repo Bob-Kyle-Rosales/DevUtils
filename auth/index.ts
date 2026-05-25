@@ -41,10 +41,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     error: "/login",
   },
   callbacks: {
-    jwt({ token, user }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         token.plan = (user as { plan?: string }).plan ?? "free";
+      }
+      // Re-fetch plan when not yet pro so upgrades reflect without re-login
+      if (token.id && token.plan !== "pro") {
+        const dbUser = await db.user.findUnique({
+          where: { id: token.id as string },
+          select: { plan: true },
+        });
+        if (dbUser) token.plan = dbUser.plan;
       }
       return token;
     },
