@@ -93,6 +93,11 @@ function SidebarUser() {
       <span className="flex-1 truncate text-[12px] text-foreground">
         {session.user?.name ?? session.user?.email}
       </span>
+      {session.user?.plan === "pro" && (
+        <span className="text-[9px] font-medium px-[5px] py-px rounded bg-[#EEEDFE] text-brand shrink-0">
+          Pro
+        </span>
+      )}
       <button
         onClick={() => signOut({ callbackUrl: "/" })}
         className="text-muted hover:text-foreground transition-colors"
