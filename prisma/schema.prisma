@@ -18,6 +18,7 @@ model User {
   createdAt     DateTime  @default(now())
   accounts      Account[]
   sessions      Session[]
+  stripeCustomerId  String?  @unique
 }
 
 model Account {

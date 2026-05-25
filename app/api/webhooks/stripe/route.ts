@@ -25,9 +25,19 @@ export async function POST(req: NextRequest) {
     if (userId) {
       await db.user.update({
         where: { id: userId },
-        data: { plan: "pro" },
+        data: {
+          plan: "pro",
+          stripeCustomerId: session.customer as string,
+        },
       });
     }
+  }
+  if (event.type === "customer.subscription.deleted") {
+    const subscription = event.data.object;
+    await db.user.update({
+      where: { stripeCustomerId: subscription.customer as string },
+      data: { plan: "free" },
+    });
   }
 
   return NextResponse.json({ received: true });
