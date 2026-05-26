@@ -5,6 +5,7 @@ import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import CommandPalette from "@/components/CommandPalette";
 import SessionWrapper from "@/components/SessionWrapper";
+import { auth } from "@/auth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,11 +22,12 @@ export const metadata: Metadata = {
   description: "A collection of useful development tools",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
   return (
     <html
       lang="en"
@@ -33,7 +35,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body suppressHydrationWarning>
-        <SessionWrapper>
+        <SessionWrapper session={session}>
           <ThemeProvider>
             <div
               style={{
