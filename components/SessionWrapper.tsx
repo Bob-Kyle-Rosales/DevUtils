@@ -11,7 +11,7 @@ export default function SessionWrapper({
   session: Session | null;
 }) {
   return (
-    <SessionProvider session={session} refetchInterval={0} refetchOnWindowFocus={false}>
+    <SessionProvider session={session} basePath="/api/auth" refetchInterval={0} refetchOnWindowFocus={false}>
       {children}
     </SessionProvider>
   );
