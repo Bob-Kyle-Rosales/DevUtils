@@ -1,17 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { useTheme } from "./ThemeProvider";
 import { IconSun, IconMoon } from "@tabler/icons-react";
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted) return null;
-
   const isDark = theme === "dark";
 
   return (
